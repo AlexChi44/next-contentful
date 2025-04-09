@@ -1,42 +1,43 @@
 // components/Layout.tsx
-import { Page } from '@/lib/contentful'
-import { ComponentMapper } from './ComponentMapper'
+import { Page } from "@/lib/contentful";
+import { ComponentMapper } from "./ComponentMapper";
 
+type LayoutKey = "blogsPage" | "testPageGlobalBar";
 type PageParams = {
-  page: Page
-  type: string
-}
+  page: Page;
+  type: LayoutKey;
+};
 
 type LayoutProps = {
-  page: Page
-}
+  page: Page;
+};
 
 export default function Layout({ page, type }: PageParams) {
   const Layouts = {
     blogsPage: BlogsLayout,
-    testPageGlobalBar: GlobalBarLayout
-  }
+    testPageGlobalBar: GlobalBarLayout,
+  };
 
-  const SelectedLayout = Layouts[type] || GlobalBarLayout
+  const SelectedLayout = Layouts[type] || GlobalBarLayout;
 
-  return <SelectedLayout page={page} />
+  return <SelectedLayout page={page} />;
 }
 
 function BlogsLayout({ page }: LayoutProps) {
   return (
-    <section className='py-12 bg-gray-50'>
-      <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+    <section className="py-12 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div>Blogs Layout</div>
         <ComponentMapper page={page} />
       </div>
     </section>
-  )
+  );
 }
 
 function GlobalBarLayout({ page }: LayoutProps) {
   return (
-    <div className='p-10'>
+    <div className="p-10">
       <ComponentMapper page={page} />
     </div>
-  )
+  );
 }

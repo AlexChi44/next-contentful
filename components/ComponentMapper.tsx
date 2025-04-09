@@ -1,12 +1,13 @@
 // components/ComponentMapper.tsx
-import { Page, PageContent } from '@/lib/contentful'
-import TextBlock from './content/TextBlock'
-import ImageBlock from './content/ImageBlock'
-import Posts from '@/components/ui/posts/Posts'
+import { Page, PageContent } from "@/lib/contentful";
+import TextBlock from "./content/TextBlock";
+import ImageBlock from "./content/ImageBlock";
+import Posts from "@/components/ui/posts/Posts";
+import BrandRail from "./ui/BrandRail/BrandRail";
 
 type LayoutProps = {
-  page: Page
-}
+  page: Page;
+};
 
 export function ComponentMapper({ page }: LayoutProps) {
   // in depend from page will be generate content
@@ -15,14 +16,14 @@ export function ComponentMapper({ page }: LayoutProps) {
     const Content = {
       title: TextBlock,
       coverImg: ImageBlock,
-      postsExisting: Posts
-    }[data.sys] // getting content
+      postsExisting: Posts,
+      brandRail: BrandRail,
+    }[data.sys]; // getting content
 
     if (!Content) {
-      console.log(`Missing component type: ${data.sys}`)
-      return null
+      return null;
     }
 
-    return <Content key={data.id} {...data} />
-  })
+    return <Content key={data.id} {...data} />;
+  });
 }

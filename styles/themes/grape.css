@@ -1,0 +1,20 @@
+@tailwind base;
+
+@layer base {
+  [data-theme='grape'] {
+    --background: var(--grape);
+    --foreground: var(--berry);
+
+    [data-theme-type='highlights'],
+    &[data-theme-type='highlights'] {
+      --background: var(--summer-fruit);
+      --foreground: var(--night-sky);
+    }
+
+    [data-theme-type='shades'],
+    &[data-theme-type='shades'] {
+      --background: var(--berry);
+      --foreground: var(--grape);
+    }
+  }
+}

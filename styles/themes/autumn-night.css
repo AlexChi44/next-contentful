@@ -1,0 +1,20 @@
+@tailwind base;
+
+@layer base {
+  [data-theme='autumn-night'] {
+    --background: var(--autumn-night);
+    --foreground: var(--pink-fizz);
+
+    [data-theme-type='highlights'],
+    &[data-theme-type='highlights'] {
+      --background: var(--summer-moon);
+      --foreground: var(--night-sky);
+    }
+
+    [data-theme-type='shades'],
+    &[data-theme-type='shades'] {
+      --background: var(--pink-fizz);
+      --foreground: var(--autumn-night);
+    }
+  }
+}

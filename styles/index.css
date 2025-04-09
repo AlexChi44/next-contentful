@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'themes/dusk';
+@import 'themes/autumn-night';
+@import 'themes/mint';
+@import 'themes/sour';
+@import 'themes/grape';
+@import 'themes/espresso';
+
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    /* Colors */
+    /* Core */
+    --night-sky: 0 0 13%;
+    --crisp-white: 0 0 100%;
+    --smoky-grey: 0, 0%, 46%;
+    --stone-grey: 120, 1%, 85%;
+
+    /* Theme */
+    --dusk: 217, 31%, 22%;
+    --sky: 172, 41%, 69%;
+    --ice: 175, 65%, 97%;
+    --autumn-night: 346, 68%, 22%;
+    --summer-moon: 1, 89%, 64%;
+    --pink-fizz: 0, 39%, 94%;
+    --mint: 184, 100%, 16%;
+    --lime: 152, 61%, 53%;
+    --bitters: 130, 50%, 95%;
+    --sour: 48, 83%, 61%;
+    --lemon: 48, 75%, 76%;
+    --cloud: 49, 100%, 97%;
+    --grape: 240, 33%, 40%;
+    --summer-fruit: 283, 22%, 74%;
+    --berry: 249, 39%, 94%;
+    --espresso: 11, 14%, 23%;
+    --summer-rose: 24, 36%, 82%;
+    --peach: 24, 25%, 92%;
+
+    /* Base styles */
+    --background: var(--crisp-white);
+    --foreground: var(--night-sky);
+    --success: 134, 67%, 48%;
+    --error: 359, 82%, 42%;
+    --focus: 203, 83%, 51%;
+    --input: 0 0 60%;
+    --disabled: 0 0 70%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    @apply leading-body text-body;
+    @apply font-regular font-serif;
+  }
+
+  .theme-colors {
+    @apply bg-background text-foreground border-foreground;
+  }
+}

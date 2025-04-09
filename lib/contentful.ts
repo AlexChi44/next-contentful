@@ -1,4 +1,4 @@
-import { createClient } from 'contentful'
+import { createClient } from "contentful";
 
 // const orig = {
 //   systemTitle: 'Home',
@@ -58,74 +58,50 @@ import { createClient } from 'contentful'
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID as string,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string
-})
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
+});
 
 export type PageContent = {
-  sys: { id: string; contentType: { sys: { id: string } } }
-  fields: unknown
-}
+  content: unknown;
+  id: string;
+  sys: string;
+};
 
 export type Page = {
-  slug: string
-  type: string
-  body: PageContent[]
-}
+  slug: string;
+  type: string;
+  body: PageContent[];
+};
 
-export const getPageBySlug = async (
-  slug: string
-): Promise<Page | undefined> => {
-  const pages: Page[] = [
-    {
-      slug: 'home',
-      type: 'Home',
-      body: [
-        {
-          sys: { id: '1', contentType: { sys: { id: 'textBlock' } } },
-          fields: { text: 'Welcome to our site!' }
-        },
-        {
-          sys: { id: '2', contentType: { sys: { id: 'imageBlock' } } },
-          fields: { src: 'https://via.placeholder.com/300', alt: 'Placeholder' }
-        }
-      ]
-    },
-    {
-      slug: 'the-global-bar-page',
-      type: 'General',
-      body: [
-        {
-          sys: { id: '3', contentType: { sys: { id: 'textBlock' } } },
-          fields: { text: 'This is the about page.' }
-        }
-      ]
-    }
-  ]
-
-  return pages.find(page => page.slug === slug)
-}
-
-export async function getBySlug(slug, type, locale = 'af') {
+export async function getBySlug(
+  slug: string,
+  type: string,
+  locale: string = "af"
+): Promise<Page> {
   const entries = await client.getEntries({
     content_type: type,
-    'fields.slug': slug,
+    "fields.slug": slug,
     locale,
-    include: 2 // depth of nesting levels !
-  })
-  console.log(entries, 'entries get by slug')
-  const { fields, sys } = entries.items[0]
+    include: 2,
+  });
+
+  if (!entries.items.length) {
+    throw new Error(`No entry found for slug: ${slug}`);
+  }
+
+  const { fields, sys } = entries.items[0];
 
   return {
-    slug: fields.slug,
-    type: sys.type,
-    body: Object.entries(fields).map(([key, value], i) => ({
-      content: value,
+    slug: fields.slug as string,
+    type: sys.contentType.sys.id,
+    body: Object.keys(fields).map((key, i) => ({
+      content: fields[key],
       sys: key,
-      id: key + i
-    }))
-  }
+      id: `${key}-${i}`,
+    })),
+  };
 }
 
 export const getPageSlugs = async (): Promise<string[]> => {
-  return ['home', 'about']
-}
+  return ["home", "about"];
+};

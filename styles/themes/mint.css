@@ -1,0 +1,20 @@
+@tailwind base;
+
+@layer base {
+  [data-theme='mint'] {
+    --background: var(--mint);
+    --foreground: var(--bitters);
+
+    [data-theme-type='highlights'],
+    &[data-theme-type='highlights'] {
+      --background: var(--lime);
+      --foreground: var(--mint);
+    }
+
+    [data-theme-type='shades'],
+    &[data-theme-type='shades'] {
+      --background: var(--bitters);
+      --foreground: var(--mint);
+    }
+  }
+}
